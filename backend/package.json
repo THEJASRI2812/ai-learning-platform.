@@ -16,8 +16,7 @@
   ],
   "author": "EdTech Development Team",
   "license": "MIT",
-  "dependencies": {
-    "@google/genai": "^0.1.2",
+ "dependencies": {
     "@supabase/supabase-js": "^2.48.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
