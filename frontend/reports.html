@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accreditation & Quality Reports - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Admin Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="institution-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge" style="background: var(--green-soft); color: var(--green-dark);">ADMIN</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Institutional Leadership</div>
+      <a href="institution-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Executive Dashboard</span>
+      </a>
+      <a href="institution-analytics.html" class="sidebar-link">
+        <i data-lucide="bar-chart-2"></i>
+        <span>Deep Analytics</span>
+      </a>
+      <a href="reports.html" class="sidebar-link active">
+        <i data-lucide="file-spreadsheet"></i>
+        <span>Export Reports</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm" style="background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));">RV</div>
+        <div class="user-info-text">
+          <div class="user-name-text">Dean Robert Vance</div>
+          <div class="user-role-badge">Academic Dean</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Institutional Reporting Center</h1>
+      </div>
+
+      <div class="topbar-right">
+        <a href="institution-dashboard.html" class="btn btn-outline btn-sm">
+          <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i> Back to Dashboard
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <div class="dashboard-card">
+        <div class="card-top" style="flex-wrap: wrap; gap: var(--spacing-md);">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+              Accreditation, Compliance & Retention Reports
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Generate and download standardized executive audits for academic board reviews.
+            </p>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Report Title</th>
+                <th>Period</th>
+                <th>Format</th>
+                <th>Status</th>
+                <th>Download / Export</th>
+              </tr>
+            </thead>
+            <tbody id="reportsTableBody">
+              <!-- Rendered dynamically by institution.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/institution.js"></script>
+</body>
+</html>

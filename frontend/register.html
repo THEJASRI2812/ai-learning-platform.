@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - AI Learning & Skill Development Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="auth-page">
+
+  <header class="auth-header">
+    <a href="index.html" class="brand-logo">
+      <i data-lucide="graduation-cap"></i>
+      <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+    </a>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h1 class="auth-title">Create Account</h1>
+      <p class="auth-subtitle">Join the AI-powered adaptive learning ecosystem</p>
+
+      <form id="registerForm">
+        <div class="form-group">
+          <label class="form-label" for="regFullName">Full Name</label>
+          <input type="text" id="regFullName" class="form-input" placeholder="e.g. Alex Morgan" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regEmail">Academic / Professional Email</label>
+          <input type="email" id="regEmail" class="form-input" placeholder="e.g. alex.morgan@university.edu" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regPassword">Password</label>
+          <input type="password" id="regPassword" class="form-input" placeholder="At least 6 characters" required minlength="6">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regRole">Role</label>
+          <select id="regRole" class="form-select" required>
+            <option value="student" selected>Student</option>
+            <option value="teacher">Teacher / Faculty</option>
+            <option value="admin">Institution Admin</option>
+          </select>
+        </div>
+
+        <button type="submit" id="regSubmitBtn" class="btn btn-primary" style="width: 100%; margin-top: 14px;">
+          <i data-lucide="user-plus" style="width: 16px; height: 16px;"></i> Complete Registration
+        </button>
+      </form>
+
+      <div class="auth-footer-links">
+        Already registered? <a href="login.html" style="font-weight: 600;">Sign In</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fullName = document.getElementById('regFullName').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const role = document.getElementById('regRole').value;
+      const submitBtn = document.getElementById('regSubmitBtn');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="ai-pulse-dot"></span> Creating Account...';
+
+      try {
+        const result = await window.AuthService.signUp(fullName, email, password, role);
+        window.Utils.showToast(`Account created successfully for ${fullName}!`, 'success');
+
+        setTimeout(() => {
+          if (role === 'student') {
+            window.location.href = 'onboarding.html';
+          } else if (role === 'teacher') {
+            window.location.href = 'teacher-dashboard.html';
+          } else {
+            window.location.href = 'institution-dashboard.html';
+          }
+        }, 800);
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="user-plus" style="width: 16px; height: 16px;"></i> Complete Registration';
+        window.Utils.showToast(err.message || 'Registration failed. Please try again.', 'error');
+        window.Utils.refreshIcons();
+      }
+    });
+  </script>
+</body>
+</html>

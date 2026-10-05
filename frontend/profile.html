@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Student Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="student-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge">STUDENT</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Learning</div>
+      <a href="student-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="ai-tutor.html" class="sidebar-link">
+        <i data-lucide="bot"></i>
+        <span>AI Tutor</span>
+      </a>
+      <a href="learning-path.html" class="sidebar-link">
+        <i data-lucide="git-branch"></i>
+        <span>Learning Path</span>
+      </a>
+      <a href="assessments.html" class="sidebar-link">
+        <i data-lucide="check-square"></i>
+        <span>Assessments</span>
+      </a>
+
+      <div class="nav-section-title">Skill Development</div>
+      <a href="skills.html" class="sidebar-link">
+        <i data-lucide="target"></i>
+        <span>Skills & Gaps</span>
+      </a>
+      <a href="progress.html" class="sidebar-link">
+        <i data-lucide="trending-up"></i>
+        <span>Progress Analytics</span>
+      </a>
+      <a href="achievements.html" class="sidebar-link">
+        <i data-lucide="award"></i>
+        <span>Achievements</span>
+      </a>
+      <a href="career.html" class="sidebar-link">
+        <i data-lucide="compass"></i>
+        <span>Career Match</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="profile.html" class="sidebar-link active">
+        <i data-lucide="user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm sync-user-avatar">AM</div>
+        <div class="user-info-text">
+          <div class="user-name-text sync-user-name">Alex Morgan</div>
+          <div class="user-role-badge sync-user-role">Student</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Student Academic Profile</h1>
+      </div>
+
+      <div class="topbar-right">
+        <a href="profile.html" class="user-avatar-sm sync-user-avatar">AM</a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <div class="dashboard-card" style="max-width: 720px; margin: 0 auto;">
+        <div style="display: flex; align-items: center; gap: var(--spacing-lg); margin-bottom: var(--spacing-2xl); border-bottom: 1px solid var(--border-color); padding-bottom: var(--spacing-lg);">
+          <div style="width: 72px; height: 72px; border-radius: var(--radius-full); background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple)); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800;" class="sync-user-avatar">
+            AM
+          </div>
+          <div>
+            <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--primary-navy);" class="sync-user-name">Alex Morgan</h2>
+            <div style="color: var(--text-muted); font-size: 0.9rem;" id="profEmail">student@edulearn.ai</div>
+            <span class="status-pill completed" style="margin-top: 6px; display: inline-block;">Enrolled Student</span>
+          </div>
+        </div>
+
+        <form id="profileForm">
+          <div class="form-group">
+            <label class="form-label" for="profNameInput">Full Legal Name</label>
+            <input type="text" id="profNameInput" class="form-input" value="Alex Morgan" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profDeptInput">Department</label>
+            <input type="text" id="profDeptInput" class="form-input" value="Computer Science & Engineering" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profYearInput">Academic Year</label>
+            <select id="profYearInput" class="form-select">
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year" selected>3rd Year</option>
+              <option value="4th Year">4th Year</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profCareerGoalInput">Target Career Goal</label>
+            <input type="text" id="profCareerGoalInput" class="form-input" value="AI Engineer / Data Scientist" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profLearningStyleInput">Preferred Learning Style</label>
+            <input type="text" id="profLearningStyleInput" class="form-input" value="Visual & Hands-on Coding" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profInterestsInput">Interests (comma-separated)</label>
+            <input type="text" id="profInterestsInput" class="form-input" value="Artificial Intelligence, Machine Learning, Cloud Architecture" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+            <i data-lucide="save" style="width: 16px; height: 16px;"></i> Update Profile Settings
+          </button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.AuthService && !window.AuthService.requireAuth(['student'])) return;
+      const user = window.AuthService ? window.AuthService.getCurrentUser() : null;
+      if (user) {
+        document.getElementById('profNameInput').value = user.name || 'Alex Morgan';
+        document.getElementById('profEmail').textContent = user.email || 'student@edulearn.ai';
+      }
+    });
+
+    document.getElementById('profileForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const updatedName = document.getElementById('profNameInput').value.trim();
+      const user = window.AuthService.getCurrentUser();
+      user.name = updatedName;
+      window.AuthService.setCurrentUser(user);
+      window.Utils.syncUserHeader();
+      window.Utils.showToast('Profile updated successfully!', 'success');
+    });
+  </script>
+</body>
+</html>

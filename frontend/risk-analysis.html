@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>At-Risk Student Analysis - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Teacher Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="teacher-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge" style="background: var(--purple-soft); color: var(--primary-purple);">TEACHER</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Faculty Portal</div>
+      <a href="teacher-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="teacher-students.html" class="sidebar-link">
+        <i data-lucide="users"></i>
+        <span>Students Roster</span>
+      </a>
+      <a href="risk-analysis.html" class="sidebar-link active">
+        <i data-lucide="alert-triangle"></i>
+        <span>Risk Analysis</span>
+      </a>
+      <a href="institution-analytics.html" class="sidebar-link">
+        <i data-lucide="bar-chart-3"></i>
+        <span>Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm" style="background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));">SJ</div>
+        <div class="user-info-text">
+          <div class="user-name-text">Dr. Sarah Jenkins</div>
+          <div class="user-role-badge">Faculty Advisor</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Early At-Risk Student Analysis</h1>
+      </div>
+
+      <div class="topbar-right">
+        <a href="teacher-dashboard.html" class="btn btn-outline btn-sm">
+          <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i> Back to Panel
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <!-- Mandatory Analytical Disclaimer -->
+      <div style="background-color: #fff7ed; border: 1px solid #fed7aa; border-left: 4px solid var(--accent-amber); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: var(--spacing-xl); display: flex; align-items: flex-start; gap: 12px;">
+        <i data-lucide="alert-circle" style="color: var(--accent-amber); width: 22px; height: 22px; margin-top: 2px;"></i>
+        <div style="font-size: 0.9rem; color: #9a3412; line-height: 1.5;">
+          <strong>Analytical Support Policy:</strong> This dashboard provides analytical indicators calculated from measurable engagement and assessment metrics (e.g. low quiz scores, declining performance trends, prolonged inactivity). <em>It is designed strictly as a supportive faculty intervention tool and must not be interpreted as a deterministic prediction about a student's future capabilities.</em>
+        </div>
+      </div>
+
+      <!-- Measurable Indicators Explanation Cards -->
+      <div class="grid-4" style="margin-bottom: var(--spacing-xl);">
+        <div class="feature-card" style="padding: 16px;">
+          <div style="font-weight: 700; color: #b91c1c; font-size: 0.85rem; text-transform: uppercase;">1. Low Scores</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Diagnostic or module quiz score below 60% threshold.</p>
+        </div>
+        <div class="feature-card" style="padding: 16px;">
+          <div style="font-weight: 700; color: #b45309; font-size: 0.85rem; text-transform: uppercase;">2. Declining Trend</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Downwards slope across 3 consecutive assessment sessions.</p>
+        </div>
+        <div class="feature-card" style="padding: 16px;">
+          <div style="font-weight: 700; color: #b45309; font-size: 0.85rem; text-transform: uppercase;">3. Low Completion</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Milestone pace &lt;40% of scheduled syllabus timeline.</p>
+        </div>
+        <div class="feature-card" style="padding: 16px;">
+          <div style="font-weight: 700; color: #b91c1c; font-size: 0.85rem; text-transform: uppercase;">4. Inactivity</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Zero code execution or portal visits for &gt;7 days.</p>
+        </div>
+      </div>
+
+      <!-- At Risk Students List -->
+      <div id="riskStudentsContainer">
+        <!-- Rendered dynamically by teacher.js -->
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Faculty Guidance Modal -->
+  <div class="modal-overlay" id="noteInterventionModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Record Academic Intervention Note</h3>
+        <button class="toast-close" onclick="window.Utils.closeModal('noteInterventionModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+          Attach mentorship action plan for <strong id="modalStudentName">Student</strong>.
+        </p>
+        <input type="hidden" id="modalStudentId">
+        <div class="form-group">
+          <label class="form-label" for="modalNoteContent">Faculty Support Action</label>
+          <textarea id="modalNoteContent" class="form-textarea" rows="4" placeholder="e.g. Scheduled 1-on-1 meeting; assigned peer study buddy for OOP concepts..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="window.Utils.closeModal('noteInterventionModal')">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="window.saveTeacherNote()">Save Support Action</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Teacher Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="teacher-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge" style="background: var(--purple-soft); color: var(--primary-purple);">TEACHER</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Faculty Portal</div>
+      <a href="teacher-dashboard.html" class="sidebar-link active">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="teacher-students.html" class="sidebar-link">
+        <i data-lucide="users"></i>
+        <span>Students Roster</span>
+      </a>
+      <a href="risk-analysis.html" class="sidebar-link">
+        <i data-lucide="alert-triangle"></i>
+        <span>Risk Analysis</span>
+      </a>
+      <a href="institution-analytics.html" class="sidebar-link">
+        <i data-lucide="bar-chart-3"></i>
+        <span>Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm" style="background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));">SJ</div>
+        <div class="user-info-text">
+          <div class="user-name-text">Dr. Sarah Jenkins</div>
+          <div class="user-role-badge">Faculty Advisor</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Faculty Monitoring Panel</h1>
+      </div>
+
+      <div class="topbar-right">
+        <div class="ai-engine-pill">
+          <span class="ai-pulse-dot"></span>
+          <span>14 At-Risk Alerts Active</span>
+        </div>
+        <div class="user-avatar-sm">SJ</div>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <!-- Welcome Banner -->
+      <section class="welcome-banner" style="background: linear-gradient(135deg, #2e1065 0%, #1e1b4b 100%);">
+        <div class="welcome-text">
+          <h2>Welcome, Dr. Sarah Jenkins 🎓</h2>
+          <p>Cohort analytics are updated in real-time. Early interventions are ready for review.</p>
+        </div>
+        <div class="welcome-meta">
+          <div class="meta-item">
+            <div class="meta-val" id="teacherNeedingSupport">14</div>
+            <div class="meta-lbl">Need Support</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-val" id="teacherTotalStudents">142</div>
+            <div class="meta-lbl">Cohort Total</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 KPI Cards -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-header"><span class="kpi-title">Total Students</span><div class="kpi-icon"><i data-lucide="users"></i></div></div>
+          <div class="kpi-value">142</div>
+          <div class="kpi-footer">Active engineering cohort</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header"><span class="kpi-title">Average Score</span><div class="kpi-icon purple"><i data-lucide="award"></i></div></div>
+          <div class="kpi-value" id="teacherAvgScore">78%</div>
+          <div class="kpi-footer"><span class="trend-badge up">↑ +3%</span> cohort average</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header"><span class="kpi-title">Course Completion</span><div class="kpi-icon green"><i data-lucide="check-circle-2"></i></div></div>
+          <div class="kpi-value" id="teacherCompletionRate">68%</div>
+          <div class="kpi-footer">Target: 75% by term end</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header"><span class="kpi-title">Active Students</span><div class="kpi-icon"><i data-lucide="activity"></i></div></div>
+          <div class="kpi-value" id="teacherActiveStudents">128</div>
+          <div class="kpi-footer">Logged in past 48h</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header"><span class="kpi-title">Need Support</span><div class="kpi-icon amber"><i data-lucide="alert-triangle"></i></div></div>
+          <div class="kpi-value" style="color: #dc2626;">14</div>
+          <div class="kpi-footer"><a href="risk-analysis.html" style="font-weight: 700; color: #dc2626;">Review Risk Flags →</a></div>
+        </div>
+      </section>
+
+      <!-- Student Roster Table -->
+      <section class="dashboard-card">
+        <div class="card-top">
+          <h3 class="card-heading"><i data-lucide="list-checks"></i> Student Performance & Monitoring</h3>
+          <div style="display: flex; gap: 8px;">
+            <a href="risk-analysis.html" class="btn btn-outline btn-sm">At-Risk Diagnostic View</a>
+            <a href="teacher-students.html" class="btn btn-primary btn-sm">Manage Full Roster</a>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Department</th>
+                <th>Progress</th>
+                <th>Avg Score</th>
+                <th>Skill Gap Status</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teacherStudentsTableBody">
+              <!-- Rendered dynamically by teacher.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Faculty Guidance Modal -->
+  <div class="modal-overlay" id="noteInterventionModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Record Academic Intervention Note</h3>
+        <button class="toast-close" onclick="window.Utils.closeModal('noteInterventionModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+          Add guidance notes for <strong id="modalStudentName">Alex Morgan</strong>. This note will attach to their learning telemetry.
+        </p>
+        <input type="hidden" id="modalStudentId">
+        <div class="form-group">
+          <label class="form-label" for="modalNoteContent">Faculty Observation & Action Plan</label>
+          <textarea id="modalNoteContent" class="form-textarea" rows="4" placeholder="e.g. Recommended office hours for statistics hypothesis testing; assigned supplementary video lab..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="window.Utils.closeModal('noteInterventionModal')">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="window.saveTeacherNote()">Save Observation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+</html>

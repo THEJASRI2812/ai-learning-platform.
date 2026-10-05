@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Socratic Tutor - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Student Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="student-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge">STUDENT</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Learning</div>
+      <a href="student-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="ai-tutor.html" class="sidebar-link active">
+        <i data-lucide="bot"></i>
+        <span>AI Tutor</span>
+      </a>
+      <a href="learning-path.html" class="sidebar-link">
+        <i data-lucide="git-branch"></i>
+        <span>Learning Path</span>
+      </a>
+      <a href="assessments.html" class="sidebar-link">
+        <i data-lucide="check-square"></i>
+        <span>Assessments</span>
+      </a>
+
+      <div class="nav-section-title">Skill Development</div>
+      <a href="skills.html" class="sidebar-link">
+        <i data-lucide="target"></i>
+        <span>Skills & Gaps</span>
+      </a>
+      <a href="progress.html" class="sidebar-link">
+        <i data-lucide="trending-up"></i>
+        <span>Progress Analytics</span>
+      </a>
+      <a href="achievements.html" class="sidebar-link">
+        <i data-lucide="award"></i>
+        <span>Achievements</span>
+      </a>
+      <a href="career.html" class="sidebar-link">
+        <i data-lucide="compass"></i>
+        <span>Career Match</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="profile.html" class="sidebar-link">
+        <i data-lucide="user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm sync-user-avatar">AM</div>
+        <div class="user-info-text">
+          <div class="user-name-text sync-user-name">Alex Morgan</div>
+          <div class="user-role-badge sync-user-role">Student</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Personalized AI Tutor</h1>
+      </div>
+
+      <div class="topbar-right">
+        <div class="ai-engine-pill">
+          <span class="ai-pulse-dot"></span>
+          <span>Google Gemini API</span>
+        </div>
+        <a href="profile.html" class="user-avatar-sm sync-user-avatar">AM</a>
+      </div>
+    </header>
+
+    <!-- Page Body: Chat Wrapper -->
+    <main class="dashboard-content">
+      <div class="chat-wrapper">
+        
+        <!-- Messages Area -->
+        <div class="chat-messages" id="chatMessages">
+          
+          <!-- Welcome Initial Message -->
+          <div class="chat-bubble-container ai">
+            <div class="chat-avatar">
+              <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="chat-bubble">
+              <div style="font-weight: 600; margin-bottom: 6px; color: var(--primary-purple); display: flex; align-items: center; gap: 4px;">
+                <i data-lucide="bot" style="width: 16px; height: 16px;"></i> AI Socratic Tutor
+              </div>
+              <p>
+                Hello Alex! I am your personalized AI tutor powered by Gemini. Ask me any conceptual question—such as <em>"What is Machine Learning?"</em>, <em>"How does Python OOP work?"</em>, or <em>"Explain SQL Joins"</em>.
+              </p>
+              <p style="margin-top: 6px; font-size: 0.85rem; color: var(--text-muted);">
+                You can also click any of the action buttons below to simplify explanations, see code examples, request hints, or generate interactive mini-quizzes!
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Prompt Action Chips -->
+        <div class="chat-action-chips">
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); align-self: center; margin-right: 4px;">
+            Quick Actions:
+          </span>
+          <button type="button" class="chip-btn" data-action="explain-simply">
+            <i data-lucide="smile" style="width: 14px; height: 14px;"></i> Explain Simply
+          </button>
+          <button type="button" class="chip-btn" data-action="example">
+            <i data-lucide="code" style="width: 14px; height: 14px;"></i> Give Example
+          </button>
+          <button type="button" class="chip-btn" data-action="hint">
+            <i data-lucide="lightbulb" style="width: 14px; height: 14px;"></i> Give Hint
+          </button>
+          <button type="button" class="chip-btn" data-action="quiz">
+            <i data-lucide="help-circle" style="width: 14px; height: 14px;"></i> Generate Quiz
+          </button>
+          <button type="button" class="chip-btn" data-action="summarize">
+            <i data-lucide="list" style="width: 14px; height: 14px;"></i> Summarize
+          </button>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-bar">
+          <input type="text" id="chatInput" class="chat-input-field" placeholder="Ask a question (e.g., 'What is Machine Learning?')...">
+          <button type="button" id="sendChatBtn" class="btn btn-primary" style="border-radius: var(--radius-full); padding: 12px 24px;">
+            <i data-lucide="send" style="width: 16px; height: 16px;"></i> Send
+          </button>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ai-tutor.js"></script>
+</body>
+</html>

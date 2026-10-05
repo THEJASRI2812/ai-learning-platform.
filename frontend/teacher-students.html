@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students Roster - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Teacher Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="teacher-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge" style="background: var(--purple-soft); color: var(--primary-purple);">TEACHER</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Faculty Portal</div>
+      <a href="teacher-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="teacher-students.html" class="sidebar-link active">
+        <i data-lucide="users"></i>
+        <span>Students Roster</span>
+      </a>
+      <a href="risk-analysis.html" class="sidebar-link">
+        <i data-lucide="alert-triangle"></i>
+        <span>Risk Analysis</span>
+      </a>
+      <a href="institution-analytics.html" class="sidebar-link">
+        <i data-lucide="bar-chart-3"></i>
+        <span>Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm" style="background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));">SJ</div>
+        <div class="user-info-text">
+          <div class="user-name-text">Dr. Sarah Jenkins</div>
+          <div class="user-role-badge">Faculty Advisor</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Enrolled Students Roster</h1>
+      </div>
+
+      <div class="topbar-right">
+        <div class="user-avatar-sm">SJ</div>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <div class="dashboard-card">
+        <div class="card-top" style="flex-wrap: wrap; gap: var(--spacing-md);">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+              Cohort Performance & Diagnostic Tracking
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Filter, inspect individual learning curves, and record support notes.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="rosterSearchInput" class="form-input" placeholder="Search by student name..." style="width: 240px; padding: 8px 12px;">
+            <button class="btn btn-outline btn-sm" onclick="filterRoster()">Search</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Department</th>
+                <th>Progress</th>
+                <th>Score</th>
+                <th>Skill Gap</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teacherStudentsTableBody">
+              <!-- Rendered dynamically by teacher.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/teacher.js"></script>
+
+  <script>
+    window.filterRoster = function() {
+      const q = document.getElementById('rosterSearchInput').value.toLowerCase();
+      const rows = document.querySelectorAll('#teacherStudentsTableBody tr');
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+    };
+  </script>
+</body>
+</html>

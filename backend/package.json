@@ -1,0 +1,26 @@
+{
+  "name": "ai-learning-platform-backend",
+  "version": "1.0.0",
+  "description": "Backend API for AI-Powered Personalized Learning & Skill Development Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "edtech",
+    "ai-learning",
+    "gemini-ai",
+    "express",
+    "supabase"
+  ],
+  "author": "EdTech Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^0.1.2",
+    "@supabase/supabase-js": "^2.48.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Gap Detection & Development - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Student Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="student-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge">STUDENT</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Learning</div>
+      <a href="student-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="ai-tutor.html" class="sidebar-link">
+        <i data-lucide="bot"></i>
+        <span>AI Tutor</span>
+      </a>
+      <a href="learning-path.html" class="sidebar-link">
+        <i data-lucide="git-branch"></i>
+        <span>Learning Path</span>
+      </a>
+      <a href="assessments.html" class="sidebar-link">
+        <i data-lucide="check-square"></i>
+        <span>Assessments</span>
+      </a>
+
+      <div class="nav-section-title">Skill Development</div>
+      <a href="skills.html" class="sidebar-link active">
+        <i data-lucide="target"></i>
+        <span>Skills & Gaps</span>
+      </a>
+      <a href="progress.html" class="sidebar-link">
+        <i data-lucide="trending-up"></i>
+        <span>Progress Analytics</span>
+      </a>
+      <a href="achievements.html" class="sidebar-link">
+        <i data-lucide="award"></i>
+        <span>Achievements</span>
+      </a>
+      <a href="career.html" class="sidebar-link">
+        <i data-lucide="compass"></i>
+        <span>Career Match</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="profile.html" class="sidebar-link">
+        <i data-lucide="user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm sync-user-avatar">AM</div>
+        <div class="user-info-text">
+          <div class="user-name-text sync-user-name">Alex Morgan</div>
+          <div class="user-role-badge sync-user-role">Student</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Skill Gap Detection & Development</h1>
+      </div>
+
+      <div class="topbar-right">
+        <div class="ai-engine-pill">
+          <span class="ai-pulse-dot"></span>
+          <span>Benchmarked to AI Engineer Role</span>
+        </div>
+        <a href="profile.html" class="user-avatar-sm sync-user-avatar">AM</a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <!-- Section 1: Skill Gap Detection -->
+      <section style="margin-bottom: var(--spacing-2xl);">
+        <div class="dashboard-card">
+          <div class="card-top">
+            <div>
+              <h2 style="font-size: 1.35rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+                Identified Skill Gaps vs. Industry Benchmarks
+              </h2>
+              <p style="color: var(--text-muted); font-size: 0.9rem;">
+                Comparing your current assessment scores against required competency thresholds for your target career goal.
+              </p>
+            </div>
+            <a href="assessments.html" class="btn btn-outline btn-sm">
+              <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i> Retake Diagnostic
+            </a>
+          </div>
+
+          <div id="skillGapsContainer">
+            <!-- Rendered dynamically by skills.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Skill Development Catalog across 10 Categories -->
+      <section>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-md); flex-wrap: wrap; gap: var(--spacing-sm);">
+          <div>
+            <h2 style="font-size: 1.35rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+              Future-Ready Skill Development Modules
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Explore structured curricula, capstone projects, and industry certifications across all 10 engineering domains.
+            </p>
+          </div>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: var(--spacing-lg);">
+          <button class="btn btn-sm btn-outline cat-filter-btn active" data-category="All">All Categories</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Artificial Intelligence">AI & Deep Learning</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Programming">Programming</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Data Analytics">Data Analytics</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Data Science">Data Science</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Cloud Computing">Cloud Computing</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Cybersecurity">Cybersecurity</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Web Development">Web Development</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Communication">Communication</button>
+          <button class="btn btn-sm btn-outline cat-filter-btn" data-category="Problem Solving">Problem Solving</button>
+        </div>
+
+        <div class="grid-3" id="skillsCatalogContainer">
+          <!-- Rendered dynamically by skills.js -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/skills.js"></script>
+</body>
+</html>

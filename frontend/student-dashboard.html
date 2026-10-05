@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Student Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="student-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge">STUDENT</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Learning</div>
+      <a href="student-dashboard.html" class="sidebar-link active">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="ai-tutor.html" class="sidebar-link">
+        <i data-lucide="bot"></i>
+        <span>AI Tutor</span>
+      </a>
+      <a href="learning-path.html" class="sidebar-link">
+        <i data-lucide="git-branch"></i>
+        <span>Learning Path</span>
+      </a>
+      <a href="assessments.html" class="sidebar-link">
+        <i data-lucide="check-square"></i>
+        <span>Assessments</span>
+      </a>
+
+      <div class="nav-section-title">Skill Development</div>
+      <a href="skills.html" class="sidebar-link">
+        <i data-lucide="target"></i>
+        <span>Skills & Gaps</span>
+      </a>
+      <a href="progress.html" class="sidebar-link">
+        <i data-lucide="trending-up"></i>
+        <span>Progress Analytics</span>
+      </a>
+      <a href="achievements.html" class="sidebar-link">
+        <i data-lucide="award"></i>
+        <span>Achievements</span>
+      </a>
+      <a href="career.html" class="sidebar-link">
+        <i data-lucide="compass"></i>
+        <span>Career Match</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="profile.html" class="sidebar-link">
+        <i data-lucide="user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm sync-user-avatar">AM</div>
+        <div class="user-info-text">
+          <div class="user-name-text sync-user-name">Alex Morgan</div>
+          <div class="user-role-badge sync-user-role">Student</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Learning Dashboard</h1>
+      </div>
+
+      <div class="topbar-right">
+        <div class="ai-engine-pill">
+          <span class="ai-pulse-dot"></span>
+          <span>Gemini AI Engine Active</span>
+        </div>
+        <a href="profile.html" class="user-avatar-sm sync-user-avatar" title="View Profile">AM</a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <!-- Welcome Banner -->
+      <section class="welcome-banner">
+        <div class="welcome-text">
+          <h2>Welcome, <span id="studentWelcomeName">Alex Morgan</span> 👋</h2>
+          <p>Your AI Learning Path is updated. You have maintained a 7-day study streak!</p>
+        </div>
+        <div class="welcome-meta">
+          <div class="meta-item">
+            <div class="meta-val">7 Days</div>
+            <div class="meta-lbl">Daily Streak</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-val">Level 4</div>
+            <div class="meta-lbl">Competency</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Metric Cards (6 KPI Cards) -->
+      <section class="kpi-grid">
+        <!-- 1. Learning Progress -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Learning Progress</span>
+            <div class="kpi-icon"><i data-lucide="pie-chart"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiLearningProgress">72%</div>
+          <div class="kpi-footer">
+            <span class="trend-badge up">↑ +8%</span> this month
+          </div>
+        </div>
+
+        <!-- 2. Assessment Score -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Assessment Score</span>
+            <div class="kpi-icon purple"><i data-lucide="check-circle-2"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiAssessmentScore">84%</div>
+          <div class="kpi-footer">
+            <span>Average across 5 exams</span>
+          </div>
+        </div>
+
+        <!-- 3. Current Level -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Current Level</span>
+            <div class="kpi-icon green"><i data-lucide="shield-check"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiCurrentLevel">Level 4</div>
+          <div class="kpi-footer">
+            <span>Advanced Practitioner</span>
+          </div>
+        </div>
+
+        <!-- 4. Completed Courses -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Completed Courses</span>
+            <div class="kpi-icon"><i data-lucide="book-check"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiCompletedCourses">3</div>
+          <div class="kpi-footer">
+            <span>2 currently in progress</span>
+          </div>
+        </div>
+
+        <!-- 5. Learning Streak -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Learning Streak</span>
+            <div class="kpi-icon amber"><i data-lucide="flame"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiLearningStreak">7 Days</div>
+          <div class="kpi-footer">
+            <span class="trend-badge up">🔥 Personal best!</span>
+          </div>
+        </div>
+
+        <!-- 6. Skill Score -->
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-title">Skill Score</span>
+            <div class="kpi-icon purple"><i data-lucide="activity"></i></div>
+          </div>
+          <div class="kpi-value" id="kpiSkillScore">78</div>
+          <div class="kpi-footer">
+            <span>Target Benchmark: 85</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 Charts Grid -->
+      <section class="grid-3" style="margin-bottom: var(--spacing-xl);">
+        <div class="dashboard-card" style="margin-bottom: 0;">
+          <div class="card-top">
+            <h3 class="card-heading"><i data-lucide="trending-up"></i> Weekly Learning Activity</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Hours / Day</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="weeklyActivityChart"></canvas>
+          </div>
+        </div>
+
+        <div class="dashboard-card" style="margin-bottom: 0;">
+          <div class="card-top">
+            <h3 class="card-heading"><i data-lucide="bar-chart-2"></i> Assessment Performance</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Recent Scores</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="assessmentPerfChart"></canvas>
+          </div>
+        </div>
+
+        <div class="dashboard-card" style="margin-bottom: 0;">
+          <div class="card-top">
+            <h3 class="card-heading"><i data-lucide="compass"></i> Skill Progress vs Benchmark</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Radar</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="skillProgressChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Continue Learning & Recommended Courses -->
+      <section class="dashboard-grid-2-1">
+        <div>
+          <!-- Continue Learning -->
+          <div class="dashboard-card">
+            <div class="card-top">
+              <h3 class="card-heading"><i data-lucide="play-circle"></i> Continue Learning</h3>
+              <a href="learning-path.html" style="font-size: 0.85rem; font-weight: 600;">View Entire Pathway →</a>
+            </div>
+
+            <div style="background-color: var(--bg-body); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <div>
+                  <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--primary-navy);">Python for AI & Data Science</h4>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">Current Module: <strong>Module 5: Data Wrangling with Pandas</strong></div>
+                </div>
+                <span class="status-pill in-progress">In Progress</span>
+              </div>
+
+              <div class="skill-bar-track" style="height: 8px; margin: 10px 0;">
+                <div class="skill-bar-fill blue" style="width: 75%;"></div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted);">
+                <span>Progress: 75% completed</span>
+                <a href="learning-path.html" class="btn btn-primary btn-sm">Resume Module</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommended Courses -->
+          <div class="dashboard-card">
+            <div class="card-top">
+              <h3 class="card-heading"><i data-lucide="sparkles"></i> Recommended Next Courses</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">AI Suggested</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                <div>
+                  <div style="font-weight: 700; color: var(--primary-navy);">Machine Learning & Neural Networks</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Intermediate • 10 Weeks • Scikit-learn & PyTorch</div>
+                </div>
+                <a href="learning-path.html" class="btn btn-outline btn-sm">Preview</a>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                <div>
+                  <div style="font-weight: 700; color: var(--primary-navy);">Modern Cloud Architecture with AWS</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">Intermediate • 6 Weeks • Containers, VPC & Lambda</div>
+                </div>
+                <a href="skills.html" class="btn btn-outline btn-sm">Preview</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Widgets: Skill Gaps & AI Recommendations -->
+        <div>
+          <!-- Skill Gaps Widget -->
+          <div class="dashboard-card">
+            <div class="card-top">
+              <h3 class="card-heading"><i data-lucide="alert-triangle"></i> Identified Skill Gaps</h3>
+              <a href="skills.html" style="font-size: 0.85rem; font-weight: 600;">Details →</a>
+            </div>
+
+            <div class="skill-bar-wrapper">
+              <div class="skill-bar-labels">
+                <span>Statistics & Probability</span>
+                <span style="color: #dc2626;">Gap: 35%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill red" style="width: 40%;"></div>
+                <div class="benchmark-marker" style="left: 75%;"></div>
+              </div>
+            </div>
+
+            <div class="skill-bar-wrapper">
+              <div class="skill-bar-labels">
+                <span>SQL Database Queries</span>
+                <span style="color: #d97706;">Gap: 25%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill amber" style="width: 55%;"></div>
+                <div class="benchmark-marker" style="left: 80%;"></div>
+              </div>
+            </div>
+
+            <div class="skill-bar-wrapper">
+              <div class="skill-bar-labels">
+                <span>Python Programming</span>
+                <span style="color: #059669;">Gap: 10%</span>
+              </div>
+              <div class="skill-bar-track">
+                <div class="skill-bar-fill green" style="width: 80%;"></div>
+                <div class="benchmark-marker" style="left: 90%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Recommendations Widget -->
+          <div class="dashboard-card">
+            <div class="card-top">
+              <h3 class="card-heading"><i data-lucide="bot"></i> AI Recommendations</h3>
+            </div>
+
+            <div style="background-color: var(--purple-soft); border-left: 4px solid var(--primary-purple); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 10px;">
+              <div style="font-weight: 700; font-size: 0.9rem; color: var(--primary-purple);">Reinforce Hypothesis Testing</div>
+              <div style="font-size: 0.8rem; color: var(--text-dark); margin-top: 2px;">
+                Ask the AI Tutor to explain Central Limit Theorem with simple everyday analogies.
+              </div>
+              <a href="ai-tutor.html" class="btn btn-purple btn-sm" style="margin-top: 8px;">Ask AI Tutor Now</a>
+            </div>
+
+            <div style="background-color: var(--blue-soft); border-left: 4px solid var(--primary-blue); padding: 12px; border-radius: var(--radius-sm);">
+              <div style="font-weight: 700; font-size: 0.9rem; color: var(--primary-blue);">Take Adaptive Diagnostic</div>
+              <div style="font-size: 0.8rem; color: var(--text-dark); margin-top: 2px;">
+                Re-assess your SQL knowledge to recalibrate your mastery score above 70%.
+              </div>
+              <a href="assessments.html" class="btn btn-outline btn-sm" style="margin-top: 8px;">Launch Assessment</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

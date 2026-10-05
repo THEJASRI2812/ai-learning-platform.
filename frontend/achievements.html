@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achievements & Badges - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Student Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="student-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge">STUDENT</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Learning</div>
+      <a href="student-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="ai-tutor.html" class="sidebar-link">
+        <i data-lucide="bot"></i>
+        <span>AI Tutor</span>
+      </a>
+      <a href="learning-path.html" class="sidebar-link">
+        <i data-lucide="git-branch"></i>
+        <span>Learning Path</span>
+      </a>
+      <a href="assessments.html" class="sidebar-link">
+        <i data-lucide="check-square"></i>
+        <span>Assessments</span>
+      </a>
+
+      <div class="nav-section-title">Skill Development</div>
+      <a href="skills.html" class="sidebar-link">
+        <i data-lucide="target"></i>
+        <span>Skills & Gaps</span>
+      </a>
+      <a href="progress.html" class="sidebar-link">
+        <i data-lucide="trending-up"></i>
+        <span>Progress Analytics</span>
+      </a>
+      <a href="achievements.html" class="sidebar-link active">
+        <i data-lucide="award"></i>
+        <span>Achievements</span>
+      </a>
+      <a href="career.html" class="sidebar-link">
+        <i data-lucide="compass"></i>
+        <span>Career Match</span>
+      </a>
+
+      <div class="nav-section-title">Account</div>
+      <a href="profile.html" class="sidebar-link">
+        <i data-lucide="user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm sync-user-avatar">AM</div>
+        <div class="user-info-text">
+          <div class="user-name-text sync-user-name">Alex Morgan</div>
+          <div class="user-role-badge sync-user-role">Student</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Gamified Achievements & Badges</h1>
+      </div>
+
+      <div class="topbar-right">
+        <div class="ai-engine-pill">
+          <span class="ai-pulse-dot"></span>
+          <span>4 Badges Unlocked</span>
+        </div>
+        <a href="profile.html" class="user-avatar-sm sync-user-avatar">AM</a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <div class="dashboard-card" style="margin-bottom: var(--spacing-xl);">
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 4px;">
+          Milestone Badges & Honors
+        </h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Earn verified skill recognition as you progress through adaptive assessments and continuous learning streaks.
+        </p>
+      </div>
+
+      <!-- Badges Grid -->
+      <div class="badges-grid">
+        
+        <!-- 1. First Course Completed (Earned) -->
+        <div class="badge-card">
+          <div class="badge-icon-wrap">
+            <i data-lucide="award" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="badge-name">First Course Completed</h3>
+          <p class="badge-desc">Finished your first foundational curriculum track on the platform.</p>
+          <span class="status-pill completed" style="margin-top: 14px;">Earned • Sep 12</span>
+        </div>
+
+        <!-- 2. 7-Day Streak (Earned) -->
+        <div class="badge-card">
+          <div class="badge-icon-wrap" style="background: linear-gradient(135deg, #ffedd5, #fed7aa); color: #c2410c;">
+            <i data-lucide="flame" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="badge-name">7-Day Streak</h3>
+          <p class="badge-desc">Completed daily study goals for 7 consecutive days.</p>
+          <span class="status-pill completed" style="margin-top: 14px;">Earned • Today</span>
+        </div>
+
+        <!-- 3. Assessment Master (Earned) -->
+        <div class="badge-card">
+          <div class="badge-icon-wrap" style="background: linear-gradient(135deg, #f5f3ff, #ddd6fe); color: #7c3aed;">
+            <i data-lucide="trophy" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="badge-name">Assessment Master</h3>
+          <p class="badge-desc">Scored 90%+ on any adaptive diagnostic evaluation.</p>
+          <span class="status-pill completed" style="margin-top: 14px;">Earned • Sep 18</span>
+        </div>
+
+        <!-- 4. Python Beginner (Earned) -->
+        <div class="badge-card">
+          <div class="badge-icon-wrap" style="background: linear-gradient(135deg, #eff6ff, #bfdbfe); color: #1d4ed8;">
+            <i data-lucide="code" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="badge-name">Python Beginner</h3>
+          <p class="badge-desc">Mastered core syntax, loops, and data structures in Python.</p>
+          <span class="status-pill completed" style="margin-top: 14px;">Earned • Sep 04</span>
+        </div>
+
+        <!-- 5. SQL Explorer (Locked) -->
+        <div class="badge-card unearned">
+          <div class="badge-icon-wrap">
+            <i data-lucide="database" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="badge-name">SQL Explorer</h3>
+          <p class="badge-desc">Score 80%+ on advanced relational joins and window functions.</p>
+          <span class="status-pill locked" style="margin-top: 14px;">In Progress (55%)</span>
+        </div>
+
+        <!-- 6. AI Learner (Locked) -->
+        <div class="badge-card unearned">
+          <div class="badge-icon-wrap">
+            <i data-lucide="cpu" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="badge-name">AI Learner</h3>
+          <p class="badge-desc">Complete the Machine Learning foundation lab module.</p>
+          <span class="status-pill locked" style="margin-top: 14px;">Locked</span>
+        </div>
+
+        <!-- 7. Project Completed (Locked) -->
+        <div class="badge-card unearned">
+          <div class="badge-icon-wrap">
+            <i data-lucide="check-circle-2" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="badge-name">Project Completed</h3>
+          <p class="badge-desc">Submit and verify an end-to-end predictive capstone pipeline.</p>
+          <span class="status-pill locked" style="margin-top: 14px;">Locked</span>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

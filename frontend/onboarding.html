@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Onboarding - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="onboarding-page">
+
+  <header class="site-header" style="background-color: #ffffff;">
+    <div class="container nav-wrapper">
+      <a href="index.html" class="brand-logo">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--primary-blue);">AI</span></span>
+      </a>
+      <span class="brand-badge">Adaptive Onboarding Wizard</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="onboarding-card">
+      
+      <!-- Stepper Header -->
+      <div class="stepper-header">
+        <div class="stepper-progress">
+          <div class="stepper-progress-fill" id="stepperFill" style="width: 0%;"></div>
+          <div class="step-node active" id="node-1">1</div>
+          <div class="step-node" id="node-2">2</div>
+          <div class="step-node" id="node-3">3</div>
+          <div class="step-node" id="node-4">4</div>
+          <div class="step-node" id="node-5">5</div>
+          <div class="step-node" id="node-6">6</div>
+        </div>
+        <div class="step-labels">
+          <span>Personal Info</span>
+          <span>Interests</span>
+          <span>Skills</span>
+          <span>Career Goal</span>
+          <span>Learning Style</span>
+          <span>Diagnostic</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Personal Information -->
+      <div class="wizard-step active" id="step-1">
+        <h2 class="step-heading">Step 1: Personal Information</h2>
+        <p class="step-subtext">Tell us about your academic department and background.</p>
+
+        <div class="form-group">
+          <label class="form-label" for="obName">Full Name</label>
+          <input type="text" id="obName" class="form-input" placeholder="e.g. Alex Morgan" value="Alex Morgan" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="obDepartment">Academic Department</label>
+          <input type="text" id="obDepartment" class="form-input" placeholder="e.g. Computer Science & Engineering" value="Computer Science & Engineering" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="obYear">Current Academic Year</label>
+          <select id="obYear" class="form-select">
+            <option value="1st Year">1st Year (Freshman)</option>
+            <option value="2nd Year">2nd Year (Sophomore)</option>
+            <option value="3rd Year" selected>3rd Year (Junior)</option>
+            <option value="4th Year">4th Year (Senior / Final)</option>
+            <option value="Graduate">Postgraduate / Master's</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Step 2: Interests -->
+      <div class="wizard-step" id="step-2">
+        <h2 class="step-heading">Step 2: Technical Interests</h2>
+        <p class="step-subtext">Select the technology domains you are excited to explore.</p>
+
+        <div class="selectable-tiles" id="interestsContainer">
+          <div class="select-tile selected" data-value="Artificial Intelligence">
+            <div class="tile-title">Artificial Intelligence</div>
+            <div class="tile-desc">LLMs, neural architectures, and intelligent agents</div>
+          </div>
+          <div class="select-tile selected" data-value="Machine Learning">
+            <div class="tile-title">Machine Learning</div>
+            <div class="tile-desc">Supervised & unsupervised models with Python</div>
+          </div>
+          <div class="select-tile selected" data-value="Data Science">
+            <div class="tile-title">Data Science & SQL</div>
+            <div class="tile-desc">Analytics, statistics, visualization, and ETL</div>
+          </div>
+          <div class="select-tile" data-value="Cloud Computing">
+            <div class="tile-title">Cloud Computing</div>
+            <div class="tile-desc">AWS, Docker, microservices, and serverless</div>
+          </div>
+          <div class="select-tile" data-value="Cybersecurity">
+            <div class="tile-title">Cybersecurity</div>
+            <div class="tile-desc">Network defense, cryptography, and penetration testing</div>
+          </div>
+          <div class="select-tile" data-value="Web Development">
+            <div class="tile-title">Full-Stack Web</div>
+            <div class="tile-desc">Modern responsive UI, REST APIs, and databases</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Current Skills -->
+      <div class="wizard-step" id="step-3">
+        <h2 class="step-heading">Step 3: Current Skills & Confidence</h2>
+        <p class="step-subtext">How would you describe your baseline programming and math proficiency?</p>
+
+        <div class="selectable-tiles" id="skillLevelContainer">
+          <div class="select-tile" data-value="Beginner">
+            <div class="tile-title">Beginner</div>
+            <div class="tile-desc">Basic programming logic, simple loops, introductory code</div>
+          </div>
+          <div class="select-tile selected" data-value="Intermediate">
+            <div class="tile-title">Intermediate</div>
+            <div class="tile-desc">Comfortable with OOP, functions, SQL, and data structures</div>
+          </div>
+          <div class="select-tile" data-value="Advanced">
+            <div class="tile-title">Advanced</div>
+            <div class="tile-desc">Built production applications or completed machine learning projects</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Career Goal -->
+      <div class="wizard-step" id="step-4">
+        <h2 class="step-heading">Step 4: Target Career Goal</h2>
+        <p class="step-subtext">Select your target industry aspiration so our AI can calibrate required skill thresholds.</p>
+
+        <div class="selectable-tiles" id="careerGoalContainer">
+          <div class="select-tile selected" data-value="AI Engineer">
+            <div class="tile-title">AI Engineer</div>
+            <div class="tile-desc">Build & deploy deep learning systems and generative AI</div>
+          </div>
+          <div class="select-tile" data-value="Data Scientist">
+            <div class="tile-title">Data Scientist</div>
+            <div class="tile-desc">Statistical modeling, predictive analytics, and executive insights</div>
+          </div>
+          <div class="select-tile" data-value="Machine Learning Engineer">
+            <div class="tile-title">Machine Learning Engineer</div>
+            <div class="tile-desc">Scale production ML algorithms in cloud microservices</div>
+          </div>
+          <div class="select-tile" data-value="Software Developer">
+            <div class="tile-title">Software Developer</div>
+            <div class="tile-desc">Full-stack web engineering, resilient backend APIs, and databases</div>
+          </div>
+          <div class="select-tile" data-value="Cloud Architect">
+            <div class="tile-title">Cloud Solutions Architect</div>
+            <div class="tile-desc">Multi-region distributed systems on AWS/Azure</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Learning Style -->
+      <div class="wizard-step" id="step-5">
+        <h2 class="step-heading">Step 5: Preferred Learning Style</h2>
+        <p class="step-subtext">Help our AI Tutor personalize its responses to how you learn best.</p>
+
+        <div class="selectable-tiles" id="learningStyleContainer">
+          <div class="select-tile selected" data-value="Visual & Hands-on Coding">
+            <div class="tile-title">Visual & Hands-on Coding</div>
+            <div class="tile-desc">Learn by writing executable code examples, interactive diagrams, and instant feedback</div>
+          </div>
+          <div class="select-tile" data-value="Project-First">
+            <div class="tile-title">Project-First</div>
+            <div class="tile-desc">Build real-world applications step-by-step from day one</div>
+          </div>
+          <div class="select-tile" data-value="Theoretical & Mathematical">
+            <div class="tile-title">Theoretical & Mathematical</div>
+            <div class="tile-desc">Deep conceptual proofs, derivations, and statistical mechanics</div>
+          </div>
+          <div class="select-tile" data-value="Bite-Sized Microlearning">
+            <div class="tile-title">Bite-Sized Microlearning</div>
+            <div class="tile-desc">Quick 10-minute focused modules, flash assessments, and streaks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6: Initial Assessment -->
+      <div class="wizard-step" id="step-6">
+        <h2 class="step-heading">Step 6: Quick Initial Calibration Assessment</h2>
+        <p class="step-subtext">Answer these 3 quick diagnostic questions to anchor your starting skill score.</p>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label class="form-label">Q1. What is the output of `type([])` in Python?</label>
+          <div class="options-list">
+            <label style="display: block; margin-bottom: 6px;"><input type="radio" name="diagQ1" value="A" checked> &lt;class 'list'&gt;</label>
+            <label style="display: block; margin-bottom: 6px;"><input type="radio" name="diagQ1" value="B"> &lt;class 'array'&gt;</label>
+            <label style="display: block;"><input type="radio" name="diagQ1" value="C"> &lt;class 'dict'&gt;</label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label class="form-label">Q2. Which SQL keyword retrieves unique column values?</label>
+          <div class="options-list">
+            <label style="display: block; margin-bottom: 6px;"><input type="radio" name="diagQ2" value="A"> UNIQUE</label>
+            <label style="display: block; margin-bottom: 6px;"><input type="radio" name="diagQ2" value="B" checked> DISTINCT</label>
+            <label style="display: block;"><input type="radio" name="diagQ2" value="C"> DIFFERENT</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Q3. Does Supervised Learning require labeled training data?</label>
+          <div class="options-list">
+            <label style="display: block; margin-bottom: 6px;"><input type="radio" name="diagQ3" value="A" checked> Yes, always</label>
+            <label style="display: block;"><input type="radio" name="diagQ3" value="B"> No, labels are only for unsupervised learning</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wizard Navigation Buttons -->
+      <div class="wizard-navigation">
+        <button type="button" id="wizardPrevBtn" class="btn btn-outline" style="visibility: hidden;">
+          <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i> Back
+        </button>
+
+        <button type="button" id="wizardNextBtn" class="btn btn-primary">
+          Continue <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 6;
+
+    // Multi-tile click toggles
+    document.querySelectorAll('.selectable-tiles').forEach(container => {
+      container.addEventListener('click', (e) => {
+        const tile = e.target.closest('.select-tile');
+        if (!tile) return;
+        
+        // Step 2 allows multiple; other steps allow single select
+        if (container.id === 'interestsContainer') {
+          tile.classList.toggle('selected');
+        } else {
+          container.querySelectorAll('.select-tile').forEach(t => t.classList.remove('selected'));
+          tile.classList.add('selected');
+        }
+      });
+    });
+
+    function updateWizardUI() {
+      // Step visibility
+      for (let i = 1; i <= totalSteps; i++) {
+        const stepEl = document.getElementById(`step-${i}`);
+        const nodeEl = document.getElementById(`node-${i}`);
+        if (stepEl) stepEl.classList.toggle('active', i === currentStep);
+        if (nodeEl) {
+          nodeEl.classList.toggle('active', i === currentStep);
+          nodeEl.classList.toggle('completed', i < currentStep);
+        }
+      }
+
+      // Progress bar fill %
+      const progressPercent = ((currentStep - 1) / (totalSteps - 1)) * 100;
+      document.getElementById('stepperFill').style.width = `${progressPercent}%`;
+
+      // Buttons
+      const prevBtn = document.getElementById('wizardPrevBtn');
+      const nextBtn = document.getElementById('wizardNextBtn');
+
+      prevBtn.style.visibility = currentStep > 1 ? 'visible' : 'hidden';
+
+      if (currentStep === totalSteps) {
+        nextBtn.innerHTML = '<i data-lucide="check-circle" style="width: 16px; height: 16px;"></i> Complete Onboarding';
+      } else {
+        nextBtn.innerHTML = 'Continue <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>';
+      }
+
+      if (window.Utils) window.Utils.refreshIcons();
+    }
+
+    document.getElementById('wizardPrevBtn').addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateWizardUI();
+      }
+    });
+
+    document.getElementById('wizardNextBtn').addEventListener('click', async () => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateWizardUI();
+      } else {
+        // Complete Onboarding & Save
+        const nextBtn = document.getElementById('wizardNextBtn');
+        nextBtn.disabled = true;
+        nextBtn.innerHTML = '<span class="ai-pulse-dot"></span> Calibrating AI Engine...';
+
+        const name = document.getElementById('obName').value.trim() || 'Alex Morgan';
+        const department = document.getElementById('obDepartment').value.trim() || 'Computer Science';
+        const year = document.getElementById('obYear').value;
+
+        const interests = Array.from(document.querySelectorAll('#interestsContainer .select-tile.selected'))
+          .map(t => t.getAttribute('data-value'));
+
+        const skillLevel = document.querySelector('#skillLevelContainer .select-tile.selected')?.getAttribute('data-value') || 'Intermediate';
+        const careerGoal = document.querySelector('#careerGoalContainer .select-tile.selected')?.getAttribute('data-value') || 'AI Engineer';
+        const learningStyle = document.querySelector('#learningStyleContainer .select-tile.selected')?.getAttribute('data-value') || 'Visual & Hands-on';
+
+        const user = window.AuthService.getCurrentUser();
+        user.name = name;
+        window.AuthService.setCurrentUser(user);
+
+        try {
+          await window.ApiClient.saveOnboarding(user.id, {
+            name,
+            department,
+            year,
+            interests,
+            skills: skillLevel,
+            careerGoal,
+            learningStyle,
+            assessmentScore: 84
+          });
+        } catch (e) {
+          console.warn('[Onboarding] Fallback save:', e);
+        }
+
+        window.Utils.showToast('Onboarding complete! Your personalized curriculum has been generated.', 'success');
+        setTimeout(() => {
+          window.location.href = 'student-dashboard.html';
+        }, 1000);
+      }
+    });
+
+    updateWizardUI();
+  </script>
+</body>
+</html>

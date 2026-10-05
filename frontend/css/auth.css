@@ -1,0 +1,308 @@
+/* ==========================================================================
+   AI-POWERED PERSONALIZED LEARNING PLATFORM
+   Authentication & Onboarding Stylesheet (auth.css)
+   ========================================================================== */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2e1065 100%);
+  color: var(--text-dark);
+}
+
+.auth-header {
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.auth-header .brand-logo {
+  color: #ffffff;
+}
+
+.auth-header .brand-logo i {
+  color: var(--blue-light);
+}
+
+.auth-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: var(--spacing-xs);
+  text-align: center;
+}
+
+.auth-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Role Selector Tabs */
+.role-tabs {
+  display: flex;
+  background-color: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: var(--spacing-lg);
+  gap: 4px;
+}
+
+.role-tab-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.role-tab-btn.active {
+  background-color: #ffffff;
+  color: var(--primary-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Quick Demo Login Box */
+.demo-credentials-box {
+  background-color: var(--blue-soft);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.demo-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary-blue);
+  margin-bottom: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.demo-buttons-row {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.btn-demo-quick {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid #93c5fd;
+  color: var(--primary-blue);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-demo-quick:hover {
+  background: var(--primary-blue);
+  color: #ffffff;
+}
+
+/* Auth Footer Links */
+.auth-footer-links {
+  margin-top: var(--spacing-xl);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   STUDENT ONBOARDING WIZARD
+   ========================================================================== */
+.onboarding-page {
+  min-height: 100vh;
+  background-color: var(--bg-body);
+  display: flex;
+  flex-direction: column;
+}
+
+.onboarding-card {
+  max-width: 760px;
+  margin: var(--spacing-xl) auto;
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-2xl);
+}
+
+/* Wizard Stepper Progress Bar */
+.stepper-header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.stepper-progress {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: var(--spacing-md);
+}
+
+.stepper-progress::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--border-color);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.stepper-progress-fill {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: 3px;
+  background-color: var(--primary-blue);
+  transform: translateY(-50%);
+  z-index: 2;
+  transition: width 0.3s ease;
+}
+
+.step-node {
+  position: relative;
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: #ffffff;
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.step-node.active {
+  border-color: var(--primary-blue);
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  box-shadow: 0 0 0 4px var(--blue-soft);
+}
+
+.step-node.completed {
+  border-color: var(--primary-green);
+  background-color: var(--primary-green);
+  color: #ffffff;
+}
+
+.step-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Step Content Sections */
+.wizard-step {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.wizard-step.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.step-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-navy);
+  margin-bottom: var(--spacing-xs);
+}
+
+.step-subtext {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+  font-size: 0.95rem;
+}
+
+/* Interactive Selection Tiles */
+.selectable-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.select-tile {
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: #ffffff;
+}
+
+.select-tile:hover {
+  border-color: var(--primary-blue);
+  background-color: var(--blue-soft);
+}
+
+.select-tile.selected {
+  border-color: var(--primary-blue);
+  background-color: var(--blue-soft);
+  box-shadow: 0 0 0 2px var(--primary-blue);
+}
+
+.tile-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--primary-navy);
+  margin-bottom: 4px;
+}
+
+.tile-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.wizard-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
+}

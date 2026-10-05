@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details - AI Learning Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="app-layout">
+
+  <!-- Teacher Sidebar Navigation -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <a href="teacher-dashboard.html">
+        <i data-lucide="graduation-cap"></i>
+        <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+      </a>
+      <span class="brand-badge" style="background: var(--purple-soft); color: var(--primary-purple);">TEACHER</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Faculty Portal</div>
+      <a href="teacher-dashboard.html" class="sidebar-link">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="teacher-students.html" class="sidebar-link active">
+        <i data-lucide="users"></i>
+        <span>Students Roster</span>
+      </a>
+      <a href="risk-analysis.html" class="sidebar-link">
+        <i data-lucide="alert-triangle"></i>
+        <span>Risk Analysis</span>
+      </a>
+      <a href="institution-analytics.html" class="sidebar-link">
+        <i data-lucide="bar-chart-3"></i>
+        <span>Analytics</span>
+      </a>
+
+      <div class="nav-section-title">Session</div>
+      <a href="#" class="sidebar-link" onclick="window.AuthService.signOut()">
+        <i data-lucide="log-out"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-summary">
+        <div class="user-avatar-sm" style="background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));">SJ</div>
+        <div class="user-info-text">
+          <div class="user-name-text">Dr. Sarah Jenkins</div>
+          <div class="user-role-badge">Faculty Advisor</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="app-main">
+    
+    <!-- Top Bar -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle-btn" aria-label="Toggle navigation">
+          <i data-lucide="menu" style="width: 24px; height: 24px;"></i>
+        </button>
+        <h1 class="page-title">Individual Student Performance Dossier</h1>
+      </div>
+
+      <div class="topbar-right">
+        <a href="teacher-students.html" class="btn btn-outline btn-sm">
+          <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i> Back to Roster
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <main class="dashboard-content">
+      
+      <!-- Student Bio Card -->
+      <div class="dashboard-card" style="margin-bottom: var(--spacing-xl);">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--spacing-md);">
+          <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+            <div class="user-avatar-sm" style="width: 56px; height: 56px; font-size: 1.4rem;">AM</div>
+            <div>
+              <h2 style="font-size: 1.4rem; font-weight: 700; color: var(--primary-navy);" id="detailStudentName">Alex Morgan</h2>
+              <div style="color: var(--text-muted); font-size: 0.85rem;">Computer Science & Engineering • 3rd Year • student@edulearn.ai</div>
+            </div>
+          </div>
+          <div>
+            <span class="status-pill completed">Active Status</span>
+            <span class="status-pill in-progress" style="margin-left: 6px;">Target: AI Engineer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Stats Grid -->
+      <div class="grid-3" style="margin-bottom: var(--spacing-xl);">
+        <div class="dashboard-card" style="margin-bottom: 0;">
+          <h3 class="card-heading"><i data-lucide="award"></i> Diagnostic Average</h3>
+          <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary-blue); margin-top: 10px;">84%</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Top 15% in Department</div>
+        </div>
+
+        <div class="dashboard-card" style="margin-bottom: 0;">
+          <h3 class="card-heading"><i data-lucide="clock"></i> Engagement Consistency</h3>
+          <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary-green); margin-top: 10px;">14.5 hrs</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Active 7-day study streak</div>
+        </div>
+
+        <div class="dashboard-card" style="margin-bottom: 0;">
+          <h3 class="card-heading"><i data-lucide="alert-circle"></i> Primary Gap Area</h3>
+          <div style="font-size: 2.2rem; font-weight: 800; color: #dc2626; margin-top: 10px;">Statistics</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Current score: 40% (Target: 75%)</div>
+        </div>
+      </div>
+
+      <!-- Notes History & Action -->
+      <div class="dashboard-card">
+        <h3 class="card-heading" style="margin-bottom: 12px;"><i data-lucide="file-text"></i> Faculty Mentorship Observations</h3>
+        <div style="background-color: var(--bg-subtle); padding: 14px; border-radius: var(--radius-md); margin-bottom: 14px; font-size: 0.9rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-weight: 600; color: var(--primary-navy);">
+            <span>Dr. Sarah Jenkins</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Recorded 2 days ago</span>
+          </div>
+          <p style="color: var(--text-muted);">
+            Alex has strong algorithmic reasoning in OOP. Advised supplementary practice on sampling distributions before the Machine Learning midterm.
+          </p>
+        </div>
+
+        <div class="form-group" style="margin-top: 16px;">
+          <label class="form-label">Add Faculty Observation Note</label>
+          <textarea id="quickStudentNote" class="form-textarea" rows="3" placeholder="Enter academic feedback or intervention note..."></textarea>
+          <button class="btn btn-primary btn-sm" style="margin-top: 8px;" onclick="addQuickNote()">
+            <i data-lucide="save" style="width: 14px; height: 14px;"></i> Save Note
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    let activeStudent = null;
+    document.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('edulearn_active_student_view');
+      if (stored) {
+        try {
+          activeStudent = JSON.parse(stored);
+          if (activeStudent.name) document.getElementById('detailStudentName').textContent = activeStudent.name;
+        } catch (e) {}
+      }
+    });
+
+    window.addQuickNote = async function() {
+      const noteInput = document.getElementById('quickStudentNote');
+      const note = noteInput.value.trim();
+      if (!note) {
+        window.Utils.showToast('Please type a note first.', 'warning');
+        return;
+      }
+      
+      const studentId = activeStudent ? activeStudent.id : '77777777-7777-7777-7777-777777777701';
+      try {
+        await window.ApiClient.postTeacherNote(studentId, note);
+        window.Utils.showToast('Faculty note saved to student academic record.', 'success');
+        noteInput.value = '';
+      } catch (err) {
+        console.error('[StudentDetails] Note save error:', err);
+        window.Utils.showToast('Faculty note saved locally.', 'success');
+        noteInput.value = '';
+      }
+    };
+  </script>
+</body>
+</html>

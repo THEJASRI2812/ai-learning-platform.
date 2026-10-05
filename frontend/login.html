@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AI Learning & Skill Development Platform</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="auth-page">
+
+  <header class="auth-header">
+    <a href="index.html" class="brand-logo">
+      <i data-lucide="graduation-cap"></i>
+      <span>EduLearn<span style="color: var(--blue-light);">AI</span></span>
+    </a>
+  </header>
+
+  <main class="auth-main">
+    <div class="auth-card">
+      <h1 class="auth-title">Welcome Back</h1>
+      <p class="auth-subtitle">Sign in to your personalized AI learning portal</p>
+
+      <!-- Role Tabs -->
+      <div class="role-tabs" id="roleTabs">
+        <button type="button" class="role-tab-btn active" data-role="student">Student</button>
+        <button type="button" class="role-tab-btn" data-role="teacher">Teacher</button>
+        <button type="button" class="role-tab-btn" data-role="admin">Institution Admin</button>
+      </div>
+
+      <!-- Quick Demo Login Helper for Evaluators & Pitching -->
+      <div class="demo-credentials-box">
+        <div class="demo-title">
+          <i data-lucide="zap" style="width: 14px; height: 14px;"></i> 1-Click Demo Evaluation Sign In
+        </div>
+        <div class="demo-buttons-row">
+          <button type="button" class="btn-demo-quick" onclick="quickFill('student@edulearn.ai', 'student')">Student</button>
+          <button type="button" class="btn-demo-quick" onclick="quickFill('teacher@edulearn.ai', 'teacher')">Teacher</button>
+          <button type="button" class="btn-demo-quick" onclick="quickFill('admin@edulearn.ai', 'admin')">Admin</button>
+        </div>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="name@domain.edu" required value="student@edulearn.ai">
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xs);">
+            <label class="form-label" for="loginPassword" style="margin-bottom: 0;">Password</label>
+            <a href="#" style="font-size: 0.8rem; color: var(--primary-blue);" onclick="alert('In demo mode, any password works or enter your Supabase password.')">Forgot password?</a>
+          </div>
+          <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required value="password123">
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+          <i data-lucide="log-in" style="width: 16px; height: 16px;"></i> Sign In
+        </button>
+      </form>
+
+      <div class="auth-footer-links">
+        Don't have an account? <a href="register.html" style="font-weight: 600;">Create Student Account</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    let activeRole = 'student';
+
+    document.querySelectorAll('.role-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.role-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeRole = btn.getAttribute('data-role');
+      });
+    });
+
+    window.quickFill = function(email, role) {
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').value = 'demo123456';
+      activeRole = role;
+      document.querySelectorAll('.role-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-role') === role);
+      });
+    };
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const submitBtn = document.getElementById('loginSubmitBtn');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="ai-pulse-dot"></span> Authenticating...';
+
+      try {
+        const result = await window.AuthService.signIn(email, password, activeRole);
+        window.Utils.showToast(`Welcome back, ${result.user.name}! Redirecting to ${result.role} dashboard...`, 'success');
+        
+        setTimeout(() => {
+          window.location.href = window.AuthService.getRedirectUrlForRole(result.role);
+        }, 800);
+      } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="log-in" style="width: 16px; height: 16px;"></i> Sign In';
+        window.Utils.showToast(err.message || 'Authentication error. Please check credentials.', 'error');
+        window.Utils.refreshIcons();
+      }
+    });
+  </script>
+</body>
+</html>
